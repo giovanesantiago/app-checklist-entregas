@@ -1,0 +1,43 @@
+
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>
+        <mat-toolbar>
+            <span> Clientes</span>
+        </mat-toolbar>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="favoriteSeason">
+            <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+                {{season}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <button mat-button color="accent">
+            <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
+            Add Cliente
+        </button>
+    </mat-drawer>
+    <mat-drawer-content>
+        <table mat-table matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+            <tr >
+              <th mat-header-cell class="top-tabela" mat-sort-header="name">Dessert (100g)</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="calories">Calories</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="fat">Fat (g)</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="carbs">Carbs (g)</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="protein">Protein (g)</th>
+            </tr>
+          
+            <tr *ngFor="let dessert of sortedData">
+              <td mat-cell class="dados-tabela">{{dessert.name}}</td>
+              <td mat-cell class="dados-tabela">{{dessert.calories}}</td>
+              <td mat-cell class="dados-tabela">{{dessert.fat}}</td>
+              <td mat-cell class="dados-tabela">{{dessert.carbs}}</td>
+              <td mat-cell class="dados-tabela">{{dessert.protein}}</td>
+            </tr>
+          </table> 
+    </mat-drawer-content>    
+</mat-drawer-container>
+
+<div></div>
+
+  

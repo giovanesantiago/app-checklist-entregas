@@ -1,0 +1,46 @@
+.example-container{
+    height: 100%;
+}
+.mat-drawer {
+    width: 15%;
+}
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+    
+  }
+  
+  .example-radio-button {
+    width: 100%;
+    margin: 5px 5px 5px 0px;
+   
+    border-bottom: 1px solid black;
+  }
+
+  table {
+    width: 100%;
+    margin: 10px;
+  }
+  
+  .mat-sort-header-container {
+    align-items: center;
+  }
+  .top-tabela{
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+
+  .top-tabela,.dados-tabela{
+    
+    padding-bottom: 15px;
+    padding: 15px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.308);
+    border-width: 0px 0px 1px 0px;
+  }
+
+  
+
+  
