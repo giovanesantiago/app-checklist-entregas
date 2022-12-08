@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import {Sort} from '@angular/material/sort';
+import {ThemePalette} from '@angular/material/core';
 
 // Tabela
-export interface Dessert {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
+export interface listTarefas {
+  tarefas: string;
+  processo: boolean;
+  final: boolean;
+  obs: string;
 }
 
 @Component({
@@ -23,51 +22,58 @@ export class MainComponent{
   seasons: string[] = ['Cliente 1 ', 'Cliente 2', 'Cliente 3', 'Cliente 4'];
 
   // Tabela
-  desserts: Dessert[] = [
-    {name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4},
-    {name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4},
-    {name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6},
-    {name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4}
+  listTarefas: listTarefas[] = [
+    {tarefas: "Proposta", processo: false, final: false, obs: "Falta 10mil"}
+    
   ];
 
-  sortedData: Dessert[];
+  // Checkd
+  allCompleteProcesso: boolean = false;
+  allCompleteFinal: boolean = false;
 
-  constructor() {
-    this.sortedData = this.desserts.slice();
+  updateAllComplete() {
+    this.allCompleteProcesso = this.listTarefas != null && this.listTarefas.every(t => t.processo);
+    this.allCompleteFinal = this.listTarefas != null && this.listTarefas.every(t => t.final);
+  }
+  
+  someCompleteProcesso(): boolean {
+    if (this.listTarefas == null) {
+      return false;
+    }
+    return this.listTarefas.filter(t => t.processo).length > 0 && !this.allCompleteProcesso;
+  }
+  someCompleteFinal(): boolean {
+    if (this.listTarefas == null) {
+      return false;
+    }
+    return this.listTarefas.filter(t => t.final).length > 0 && !this.allCompleteFinal;
   }
 
-  sortData(sort: Sort) {
-    const data = this.desserts.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+  setAllProcesso(completed: boolean) {
+    this.allCompleteProcesso = completed;
+    if (this.listTarefas == null) {
       return;
     }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name':
-          return compare(a.name, b.name, isAsc);
-        case 'calories':
-          return compare(a.calories, b.calories, isAsc);
-        case 'fat':
-          return compare(a.fat, b.fat, isAsc);
-        case 'carbs':
-          return compare(a.carbs, b.carbs, isAsc);
-        case 'protein':
-          return compare(a.protein, b.protein, isAsc);
-        default:
-          return 0;
-      }
-    });
+    this.listTarefas.forEach(t => (t.processo = completed));
+  }
+  setAllFinal(completed: boolean) {
+    this.allCompleteFinal = completed;
+    if (this.listTarefas == null) {
+      return;
+    }
+    this.listTarefas.forEach(t => (t.final = completed));
   }
 
 
+
+  sortedData: listTarefas[];
+
+  constructor() {
+    this.sortedData = this.listTarefas.slice();
+  }
+    
 }
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
+
 
 

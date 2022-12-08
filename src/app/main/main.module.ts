@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
@@ -27,7 +29,9 @@ import { MainComponent } from './main/main.component';
     FormsModule,
     MatToolbarModule,
     MatIconModule,
-    MatSortModule
+    MatSortModule,
+    MatChipsModule,
+    MatCheckboxModule
     
   ]
 })

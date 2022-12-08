@@ -41,6 +41,12 @@
     border-width: 0px 0px 1px 0px;
   }
 
+  mat-chip-listbox{
+    margin-left: 15px;
+    margin-top: 5px;
+    text-align: center;
+  }
+
   
 
   

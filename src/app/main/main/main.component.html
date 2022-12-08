@@ -18,21 +18,56 @@
         </button>
     </mat-drawer>
     <mat-drawer-content>
-        <table mat-table matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+        <mat-chip-listbox color="accent"  aria-label="Color selection">
+            <mat-chip color="accent">
+              <img matChipAvatar src="/assets/img/icons-info/moto.png" alt="Photo of a Shiba Inu"/>
+              Moto
+            </mat-chip>
+            <mat-chip color="accent">
+                <img matChipAvatar src="/assets/img/icons-info/chassi.png" alt="Photo of a Shiba Inu"/>
+                Chassi : 008957
+            </mat-chip>
+            <mat-chip color="accent">
+                <img matChipAvatar src="/assets/img/icons-info/venda.png" alt="Photo of a Shiba Inu"/>
+                Data venda : 07/12/2022
+            </mat-chip>
+            <mat-chip color="accent">
+                <img matChipAvatar src="/assets/img/icons-info/entrega.png" alt="Photo of a Shiba Inu"/>
+                Previsão Entrega : 17/12/2022
+              </mat-chip>
+          </mat-chip-listbox>
+        <table mat-table matSort (matSortChange)="listTarefas" class="mat-elevation-z8">
             <tr >
-              <th mat-header-cell class="top-tabela" mat-sort-header="name">Dessert (100g)</th>
-              <th mat-header-cell class="top-tabela" mat-sort-header="calories">Calories</th>
-              <th mat-header-cell class="top-tabela" mat-sort-header="fat">Fat (g)</th>
-              <th mat-header-cell class="top-tabela" mat-sort-header="carbs">Carbs (g)</th>
-              <th mat-header-cell class="top-tabela" mat-sort-header="protein">Protein (g)</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="name">Tarefa</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="calories">Em processo</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="fat">Finalizado</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="carbs">Observações</th>
+              <th mat-header-cell class="top-tabela" mat-sort-header="protein"></th>
             </tr>
           
-            <tr *ngFor="let dessert of sortedData">
-              <td mat-cell class="dados-tabela">{{dessert.name}}</td>
-              <td mat-cell class="dados-tabela">{{dessert.calories}}</td>
-              <td mat-cell class="dados-tabela">{{dessert.fat}}</td>
-              <td mat-cell class="dados-tabela">{{dessert.carbs}}</td>
-              <td mat-cell class="dados-tabela">{{dessert.protein}}</td>
+            <tr *ngFor="let listTarefas of sortedData">
+              <td mat-cell class="dados-tabela">{{listTarefas.tarefas}}</td>
+              <td mat-cell class="dados-tabela">
+                <mat-checkbox class="example-margin"
+                  [checked]="allCompleteProcesso"
+                  [indeterminate]="someCompleteProcesso()"
+                  (change)="setAllProcesso($event.checked)">
+                </mat-checkbox>
+              </td>
+              <td mat-cell class="dados-tabela">
+                <mat-checkbox class="example-margin"
+                  [checked]="allCompleteFinal"
+                  [indeterminate]="someCompleteFinal()"
+                  (change)="setAllFinal($event.checked)">
+                </mat-checkbox>
+              </td>
+              <td mat-cell class="dados-tabela">{{listTarefas.obs}}</td>
+              <td  mat-cell class="dados-tabela">
+                <button class="button-obs" mat-button color="accent">
+                <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
+                Add Obs.
+                </button>
+            </td>
             </tr>
           </table> 
     </mat-drawer-content>    
