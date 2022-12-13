@@ -17,7 +17,7 @@
                 {{cliente.nome}}
             </mat-radio-button>
         </mat-radio-group>
-        <button mat-button color="accent">
+        <button (click)="createCliente()" mat-button color="accent">
             <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
             Add Cliente
         </button>

@@ -4,6 +4,8 @@ import { Cliente } from '../model/cliente';
 import { ClienteService } from '../service/cliente.service';
 import {MatRadioButtonHarness, MatRadioGroupHarness} from '@angular/material/radio/testing'
 import { MatRadioButton } from '@angular/material/radio';
+import { MatDialog } from '@angular/material/dialog';
+import { CadastroClienteComponent } from '../cadastro-cliente/cadastro-cliente.component';
 
 // Tabela
 export interface listTarefas {
@@ -39,20 +41,28 @@ export class MainComponent implements OnInit{
   sortedData: listTarefas[];
 
   constructor(
-    private clienteService:ClienteService
+    private clienteService:ClienteService,
+    public dialog:MatDialog
   ) {
     this.sortedData = this.listTarefas.slice();
   }
-  ngOnInit(): void {
-    this.clienteService.findAll().subscribe(element => {this.listClientes = element})
-  }
+  ngOnInit(): void {this.clienteService.findAll().subscribe(element => {this.listClientes = element})}
 
    // Seleção de cliente
    selectClient(idCliente: number) {
     console.log(idCliente)
       this.clienteService.findId(idCliente).subscribe(element => {this.clienteSelect = element})
       this.ngOnInit()
-      
+   }
+
+   // Criando Cliente
+   createCliente(): void {
+    const dialogRef = this.dialog.open(CadastroClienteComponent, {width: '500px'});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.ngOnInit();
+    });
    }
   
 

@@ -9,17 +9,21 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 
 
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    CadastroClienteComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatSortModule,
     MatChipsModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule
     
   ]
 })

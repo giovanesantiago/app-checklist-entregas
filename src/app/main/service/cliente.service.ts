@@ -22,4 +22,8 @@ export class ClienteService {
   findId(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(this.url + "/" + id)
   }
+
+  createClient(cliente: Cliente) {
+    return this.http.post<Cliente>(this.url + "/addCliente", cliente).pipe(first());
+  }
 }

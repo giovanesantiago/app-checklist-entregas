@@ -5,7 +5,7 @@ export interface Cliente {
     nome: string,
     moto: string,
     chassi: string,
-    dataVenda: Date,
-    dataEntrega: Date,
-    tarefa: Tarefa;
+    dataVenda?: Date,
+    dataEntrega?: Date,
+    tarefa?: Tarefa;
 }
