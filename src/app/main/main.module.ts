@@ -12,6 +12,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -31,7 +32,8 @@ import { MainComponent } from './main/main.component';
     MatIconModule,
     MatSortModule,
     MatChipsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
     
   ]
 })

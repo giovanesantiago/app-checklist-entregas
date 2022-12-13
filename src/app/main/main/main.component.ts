@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
+import { Cliente } from '../model/cliente';
+import { ClienteService } from '../service/cliente.service';
+import {MatRadioButtonHarness, MatRadioGroupHarness} from '@angular/material/radio/testing'
+import { MatRadioButton } from '@angular/material/radio';
 
 // Tabela
 export interface listTarefas {
@@ -16,20 +20,59 @@ export interface listTarefas {
 })
 
 
-export class MainComponent{
+export class MainComponent implements OnInit{
   // Menu
-  favoriteSeason!: string;
-  seasons: string[] = ['Cliente 1 ', 'Cliente 2', 'Cliente 3', 'Cliente 4'];
+  listChecked!: string;
+  listClientes!: Cliente[];
+  // Cliente selecionado
+  clienteSelect!: Cliente;
 
   // Tabela
   listTarefas: listTarefas[] = [
-    {tarefas: "Proposta", processo: false, final: false, obs: "Falta 10mil"}
-    
+    {tarefas: "Proposta", processo: false, final: false, obs: "Falta 10mil"} 
   ];
 
   // Checkd
   allCompleteProcesso: boolean = false;
   allCompleteFinal: boolean = false;
+
+  sortedData: listTarefas[];
+
+  constructor(
+    private clienteService:ClienteService
+  ) {
+    this.sortedData = this.listTarefas.slice();
+  }
+  ngOnInit(): void {
+    this.clienteService.findAll().subscribe(element => {this.listClientes = element})
+  }
+
+   // Seleção de cliente
+   selectClient(idCliente: number) {
+    console.log(idCliente)
+      this.clienteService.findId(idCliente).subscribe(element => {this.clienteSelect = element})
+      this.ngOnInit()
+      
+   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   updateAllComplete() {
     this.allCompleteProcesso = this.listTarefas != null && this.listTarefas.every(t => t.processo);
@@ -66,11 +109,7 @@ export class MainComponent{
 
 
 
-  sortedData: listTarefas[];
-
-  constructor() {
-    this.sortedData = this.listTarefas.slice();
-  }
+  
     
 }
 

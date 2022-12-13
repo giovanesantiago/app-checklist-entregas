@@ -7,9 +7,14 @@
             <mat-radio-group
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
-            [(ngModel)]="favoriteSeason">
-            <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
-                {{season}}
+            [(ngModel)]="listChecked">
+            <mat-radio-button 
+            (change)="selectClient(cliente.id)" 
+            class="example-radio-button" 
+            *ngFor="let cliente of listClientes" 
+            [id]="cliente.nome"  
+            [value]="cliente.id">
+                {{cliente.nome}}
             </mat-radio-button>
         </mat-radio-group>
         <button mat-button color="accent">
@@ -19,22 +24,22 @@
     </mat-drawer>
     <mat-drawer-content>
         <mat-chip-listbox color="accent"  aria-label="Color selection">
-            <mat-chip color="accent">
-              <img matChipAvatar src="/assets/img/icons-info/moto.png" alt="Photo of a Shiba Inu"/>
-              Moto
-            </mat-chip>
-            <mat-chip color="accent">
-                <img matChipAvatar src="/assets/img/icons-info/chassi.png" alt="Photo of a Shiba Inu"/>
-                Chassi : 008957
-            </mat-chip>
-            <mat-chip color="accent">
+          <mat-chip *ngIf="clienteSelect != null" color="accent">
+            <img matChipAvatar src="/assets/img/icons-info/moto.png" alt="Photo of a Shiba Inu"/>
+            {{clienteSelect.moto}}
+          </mat-chip>
+          <mat-chip *ngIf="clienteSelect != null" color="accent">
+              <img matChipAvatar src="/assets/img/icons-info/chassi.png" alt="Photo of a Shiba Inu"/>
+              Chassi : {{clienteSelect.chassi}}
+          </mat-chip>
+            <mat-chip *ngIf="clienteSelect != null" color="accent">
                 <img matChipAvatar src="/assets/img/icons-info/venda.png" alt="Photo of a Shiba Inu"/>
-                Data venda : 07/12/2022
+                Data venda : {{clienteSelect.dataVenda}}
             </mat-chip>
-            <mat-chip color="accent">
+            <mat-chip *ngIf="clienteSelect != null" color="accent">
                 <img matChipAvatar src="/assets/img/icons-info/entrega.png" alt="Photo of a Shiba Inu"/>
-                Previsão Entrega : 17/12/2022
-              </mat-chip>
+                Previsão Entrega : {{clienteSelect.dataEntrega}}
+             </mat-chip>
           </mat-chip-listbox>
         <table mat-table matSort (matSortChange)="listTarefas" class="mat-elevation-z8">
             <tr >
