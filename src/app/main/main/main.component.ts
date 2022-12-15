@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import { Cliente } from '../model/cliente';
 import { ClienteService } from '../service/cliente.service';
-import {MatRadioButtonHarness, MatRadioGroupHarness} from '@angular/material/radio/testing'
-import { MatRadioButton } from '@angular/material/radio';
 import { MatDialog } from '@angular/material/dialog';
 import { CadastroClienteComponent } from '../cadastro-cliente/cadastro-cliente.component';
+import { EditClienteComponent } from '../edit-cliente/edit-cliente.component';
 
 // Tabela
 export interface listTarefas {
@@ -28,6 +27,7 @@ export class MainComponent implements OnInit{
   listClientes!: Cliente[];
   // Cliente selecionado
   clienteSelect!: Cliente;
+  clienteEdit!: Cliente;
 
   // Tabela
   listTarefas: listTarefas[] = [
@@ -42,7 +42,7 @@ export class MainComponent implements OnInit{
 
   constructor(
     private clienteService:ClienteService,
-    public dialog:MatDialog
+    public dialog:MatDialog,
   ) {
     this.sortedData = this.listTarefas.slice();
   }
@@ -50,19 +50,39 @@ export class MainComponent implements OnInit{
 
    // Seleção de cliente
    selectClient(idCliente: number) {
-    console.log(idCliente)
       this.clienteService.findId(idCliente).subscribe(element => {this.clienteSelect = element})
       this.ngOnInit()
    }
 
    // Criando Cliente
    createCliente(): void {
-    const dialogRef = this.dialog.open(CadastroClienteComponent, {width: '500px'});
-
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRefCreate = this.dialog.open(CadastroClienteComponent, {width: '500px'});
+    
+    dialogRefCreate.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.ngOnInit();
     });
+   }
+
+   editCliente(idCliente: number) {
+    this.clienteService.findId(idCliente).subscribe(element => {this.clienteEdit = element});
+    
+    if(this.clienteEdit != null) {
+      const idClienteEdit = idCliente.toString();
+      sessionStorage.setItem("idClienteEdit", idClienteEdit)
+      sessionStorage.setItem("nomeClienteEdit", this.clienteEdit.nome)
+      sessionStorage.setItem("motoClienteEdit", this.clienteEdit.moto)
+      sessionStorage.setItem("chassiClienteEdit", this.clienteEdit.chassi)
+      
+      if(sessionStorage.getItem("idClienteEdit") == idClienteEdit){
+        const dialogRefEdit = this.dialog.open(EditClienteComponent, {width: '500px'});
+        dialogRefEdit.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.ngOnInit();
+        });
+      }
+    }
+
    }
   
 

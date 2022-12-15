@@ -11,11 +11,13 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
+import { EditClienteComponent } from './edit-cliente/edit-cliente.component';
 
 
 
@@ -23,7 +25,8 @@ import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.co
 @NgModule({
   declarations: [
     MainComponent,
-    CadastroClienteComponent
+    CadastroClienteComponent,
+    EditClienteComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,9 @@ import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.co
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
+    CommonModule    
     
   ]
 })

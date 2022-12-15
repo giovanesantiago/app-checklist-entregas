@@ -2,8 +2,9 @@
     height: 100%;
 }
 .mat-drawer {
-    width: 15%;
+    width: 20%;
 }
+
 .example-radio-group {
     display: flex;
     flex-direction: column;
@@ -18,7 +19,7 @@
    
     border-bottom: 1px solid black;
   }
-
+  
   table {
     width: 100%;
     margin: 10px;

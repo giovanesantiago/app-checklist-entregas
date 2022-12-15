@@ -10,11 +10,18 @@
             [(ngModel)]="listChecked">
             <mat-radio-button 
             (change)="selectClient(cliente.id)" 
-            class="example-radio-button" 
+            class="example-radio-button radio-button2" 
             *ngFor="let cliente of listClientes" 
             [id]="cliente.nome"  
             [value]="cliente.id">
-                {{cliente.nome}}
+            {{cliente.nome}}
+            <button mat-button [matMenuTriggerFor]="menu" color="accent">
+              <mat-icon  aria-hidden="false" aria-label="Example add icon" fontIcon="more_vert"></mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="editCliente(cliente.id)" mat-menu-item>Editar</button>
+            <button mat-menu-item>Deletar</button>
+          </mat-menu>
             </mat-radio-button>
         </mat-radio-group>
         <button (click)="createCliente()" mat-button color="accent">

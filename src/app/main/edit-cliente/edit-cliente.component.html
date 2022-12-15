@@ -1,0 +1,39 @@
+<h1 mat-dialog-title> Novo Cliente :</h1>
+<div mat-dialog-content>
+    <form class="example-form"> 
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>id</mat-label>
+            <input matInput placeholder="Primeiros digitos celular" maxlength="4"  readonly="true" [value]="id" name="id">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="1º e 2º Nome" [(ngModel)]="nome" name="nome">
+          </mat-form-field></td>
+        </tr></table>
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Moto</mat-label>
+            <input matInput placeholder="Modelo e Cor" [(ngModel)]="moto" name="moto">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Chassi</mat-label>
+            <input matInput placeholder="6 Ultimos nº" maxlength="6" [(ngModel)]="chassi" name="chassi">
+          </mat-form-field></td>
+         </table>
+         <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Data da venda</mat-label>
+            <input matInput placeholder="00/00/0000" maxlength="10" [(ngModel)]="dataVenda" name="dataVenda">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Previsão de entrega</mat-label>
+            <input matInput placeholder="00/00/0000" maxlength="10" [(ngModel)]="dataEntrega" name="dataEntrega">
+          </mat-form-field></td>
+         </table>
+      </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()"> Cancelar </button>
+  <button mat-button (click)="createCliente()"> Cadastrar </button>
+</div>

@@ -26,4 +26,8 @@ export class ClienteService {
   createClient(cliente: Cliente) {
     return this.http.post<Cliente>(this.url + "/addCliente", cliente).pipe(first());
   }
+
+  editCliente(idCliente: number, cliente:Cliente) {
+    return this.http.post<Cliente>(this.url + "/edit/" + idCliente, cliente).pipe(first());
+  }
 }
