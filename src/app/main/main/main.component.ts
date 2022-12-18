@@ -8,6 +8,7 @@ import { EditClienteComponent } from '../edit-cliente/edit-cliente.component';
 import { DeleteClienteComponent } from '../delete-cliente/delete-cliente.component';
 import { TarefaService } from '../service/tarefa.service';
 import { Tarefa } from '../model/tarefa';
+import { AddObsComponent } from '../add-obs/add-obs.component';
 
 // Tabela
 
@@ -77,6 +78,7 @@ export class MainComponent implements OnInit{
       const dialogRefEdit = this.dialog.open(EditClienteComponent, {width: '500px'});
       dialogRefEdit.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
+        this.selectClient(idCliente);
         this.ngOnInit();
       });
     }
@@ -98,14 +100,31 @@ export class MainComponent implements OnInit{
 
 // TAREFA
   editTarefa(idCliente:number ,idTarefa:number) {
-    console.log(idCliente, idTarefa)
-
     this.listTarefas.forEach(tarefa => {
       if(tarefa.idCliente == idCliente && tarefa.idTarefa == idTarefa) this.tarefaEdit = tarefa;
     });
     this.tarefaService.editTarefa(idCliente, idTarefa, this.tarefaEdit).subscribe(element => console.log(element))
-    console.log(this.tarefaEdit)
+    
   }
+
+  addObs(idCliente:number, idTarefa:number) {
+    const idClienteAddObs = idCliente.toString();
+    const idTarefaAddObs = idTarefa.toString();
+      sessionStorage.setItem("idClienteAddObs", idClienteAddObs)
+      sessionStorage.setItem("idTarefaAddObs", idTarefaAddObs)
+
+      if(sessionStorage.getItem("idClienteAddObs") == idClienteAddObs && sessionStorage.getItem("idTarefaAddObs") == idTarefaAddObs){
+        const dialogRefEdit = this.dialog.open(AddObsComponent, {width: '300px'});
+        dialogRefEdit.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.selectClient(idCliente);
+          this.ngOnInit();
+        });
+      }
+
+      
+  }
+
   
     
 }

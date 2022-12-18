@@ -75,7 +75,7 @@
               </td>
               <td mat-cell class="dados-tabela">{{tarefa.obs}}</td>
               <td  mat-cell class="dados-tabela">
-                <button class="button-obs" mat-button color="accent">
+                <button class="button-obs" mat-button color="accent" (click)="addObs(tarefa.idCliente, tarefa.idTarefa)">
                 <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
                 Add Obs.
                 </button>
@@ -84,6 +84,7 @@
           </table> 
           <div *ngIf="listTarefas == null" class="semTarefas">
             <img src="/assets/img/tarefas.png" width="160px">
+            <h3>Selecione um Cliente!</h3>
           </div>
     </mat-drawer-content>    
 </mat-drawer-container>

@@ -22,6 +22,7 @@ import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.co
 import { EditClienteComponent } from './edit-cliente/edit-cliente.component';
 import { DeleteClienteComponent } from './delete-cliente/delete-cliente.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AddObsComponent } from './add-obs/add-obs.component';
 
 
 
@@ -32,7 +33,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MainComponent,
     CadastroClienteComponent,
     EditClienteComponent,
-    DeleteClienteComponent
+    DeleteClienteComponent,
+    AddObsComponent
   ],
   imports: [
     CommonModule,

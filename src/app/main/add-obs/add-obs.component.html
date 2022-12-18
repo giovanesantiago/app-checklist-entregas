@@ -1,0 +1,12 @@
+<h1 mat-dialog-title> Observações </h1>
+<div mat-dialog-content>
+  <p>Digite observações abaixo : </p>
+  <mat-form-field appearance="fill">
+    <mat-label>Observações ...</mat-label>
+    <input matInput [(ngModel)]="tarefaEdit.obs">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()"> Cancelar </button>
+  <button mat-button (click)="addObs()" cdkFocusInitial>Ok</button>
+</div>

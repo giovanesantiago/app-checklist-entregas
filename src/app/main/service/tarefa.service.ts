@@ -18,6 +18,10 @@ export class TarefaService {
     return this.http.get<Tarefa[]>(this.url + "/" + idCliente);
   }
 
+  findById(idCliente:number , idTarefa:number): Observable<Tarefa> {
+    return this.http.get<Tarefa>(this.url + "/" + idCliente + "/" + idTarefa);
+  }
+
   editTarefa(idCliente:number, idTarefa:number, tarefa:Tarefa) {
     return this.http.post<Tarefa>(this.url + "/editTarefa/" + idCliente + "/" + idTarefa, tarefa).pipe(first())
   }

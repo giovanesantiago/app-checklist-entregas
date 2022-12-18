@@ -11,7 +11,6 @@ import { ClienteService } from '../service/cliente.service';
   selector: 'app-edit-cliente',
   templateUrl: './edit-cliente.component.html',
   styleUrls: ['./edit-cliente.component.css'],
-  providers: [DatePipe]
 })
 export class EditClienteComponent implements OnInit{
   id: number = 0;
@@ -24,7 +23,7 @@ export class EditClienteComponent implements OnInit{
   constructor(
     public diaolgRef: MatDialogRef<EditClienteComponent>,
     private clienteService: ClienteService,
-    private datePipe: DatePipe
+    
   ) {}
   ngOnInit(): void {
     
@@ -48,7 +47,6 @@ export class EditClienteComponent implements OnInit{
   
   createCliente() {
     this.newCliente = { "id": this.id, "nome": this.clienteEdit.nome, "moto": this.clienteEdit.moto, "chassi": this.clienteEdit.chassi, "dataVenda": this.clienteEdit.dataVenda, "dataEntrega": this.clienteEdit.dataEntrega}
-    console.log(this.newCliente)
     this.clienteService.editCliente(this.id, this.newCliente).subscribe(element => console.log(element));
     this.diaolgRef.close(); 
   }

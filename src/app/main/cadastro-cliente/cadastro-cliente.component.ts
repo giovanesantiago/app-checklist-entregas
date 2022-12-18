@@ -26,7 +26,6 @@ export class CadastroClienteComponent {
 
   createCliente() {
     this.newCliente = { "id": this.id, "nome": this.nome, "moto": this.moto, "chassi": this.chassi}
-    console.log(this.newCliente)
     this.clienteService.createClient(this.newCliente).subscribe(element => console.log(element));
     this.diaolgRef.close();
   }
