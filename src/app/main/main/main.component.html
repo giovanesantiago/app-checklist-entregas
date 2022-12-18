@@ -52,7 +52,7 @@
                 Previsão Entrega : {{clienteSelect.dataEntrega}}
              </mat-chip>
           </mat-chip-listbox>
-        <table mat-table matSort (matSortChange)="listTarefas" class="mat-elevation-z8">
+        <table *ngIf="listTarefas != null" mat-table matSort (matSortChange)="listTarefas" class="mat-elevation-z8">
             <tr >
               <th mat-header-cell class="top-tabela" mat-sort-header="name">Tarefa</th>
               <th mat-header-cell class="top-tabela" mat-sort-header="calories">Em processo</th>
@@ -64,17 +64,13 @@
             <tr *ngFor="let tarefa of listTarefas">
               <td mat-cell class="dados-tabela">{{tarefa.nome}}</td>
               <td mat-cell class="dados-tabela">
-                <mat-checkbox class="example-margin"
-                  [checked]="allCompleteProcesso"
-                  [indeterminate]="someCompleteProcesso()"
-                  (change)="setAllProcesso($event.checked)">
+                <mat-checkbox class="example-margin" (change)="editTarefa(tarefa.idCliente, tarefa.idTarefa)"
+                  [checked]="tarefa.processo" [(ngModel)]="tarefa.processo">
                 </mat-checkbox>
               </td>
               <td mat-cell class="dados-tabela">
-                <mat-checkbox class="example-margin"
-                  [checked]="allCompleteFinal"
-                  [indeterminate]="someCompleteFinal()"
-                  (change)="setAllFinal($event.checked)">
+                <mat-checkbox class="example-margin" (change)="editTarefa(tarefa.idCliente, tarefa.idTarefa)"
+                  [checked]="tarefa.finalizado" [(ngModel)]="tarefa.finalizado">
                 </mat-checkbox>
               </td>
               <td mat-cell class="dados-tabela">{{tarefa.obs}}</td>

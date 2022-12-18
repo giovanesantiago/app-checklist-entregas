@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { Tarefa } from '../model/tarefa';
 
 @Injectable({
@@ -18,4 +18,7 @@ export class TarefaService {
     return this.http.get<Tarefa[]>(this.url + "/" + idCliente);
   }
 
+  editTarefa(idCliente:number, idTarefa:number, tarefa:Tarefa) {
+    return this.http.post<Tarefa>(this.url + "/editTarefa/" + idCliente + "/" + idTarefa, tarefa).pipe(first())
+  }
 }

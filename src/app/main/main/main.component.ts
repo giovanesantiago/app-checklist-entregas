@@ -33,6 +33,8 @@ export class MainComponent implements OnInit{
   allCompleteProcesso: boolean = false;
   allCompleteFinal: boolean = false;
 
+  // Tarefa Edit
+  tarefaEdit!: Tarefa;
  
 
   constructor(
@@ -45,6 +47,7 @@ export class MainComponent implements OnInit{
     
   }
 
+  // CLIENTE
    // Seleção de cliente
    selectClient(idCliente: number) {
       sessionStorage.setItem("idClienteSelect", idCliente.toString())
@@ -93,45 +96,16 @@ export class MainComponent implements OnInit{
    }
 
 
+// TAREFA
+  editTarefa(idCliente:number ,idTarefa:number) {
+    console.log(idCliente, idTarefa)
 
-
-
-  
-  updateAllComplete() {
-    this.allCompleteProcesso = this.listTarefas != null && this.listTarefas.every(t => t.processo);
-    this.allCompleteFinal = this.listTarefas != null && this.listTarefas.every(t => t.finalizado);
+    this.listTarefas.forEach(tarefa => {
+      if(tarefa.idCliente == idCliente && tarefa.idTarefa == idTarefa) this.tarefaEdit = tarefa;
+    });
+    this.tarefaService.editTarefa(idCliente, idTarefa, this.tarefaEdit).subscribe(element => console.log(element))
+    console.log(this.tarefaEdit)
   }
-  
-  someCompleteProcesso(): boolean {
-    if (this.listTarefas == null) {
-      return false;
-    }
-    return this.listTarefas.filter(t => t.processo).length > 0 && !this.allCompleteProcesso;
-  }
-  someCompleteFinal(): boolean {
-    if (this.listTarefas == null) {
-      return false;
-    }
-    return this.listTarefas.filter(t => t.finalizado).length > 0 && !this.allCompleteFinal;
-  }
-
-  setAllProcesso(completed: boolean) {
-    this.allCompleteProcesso = completed;
-    if (this.listTarefas == null) {
-      return;
-    }
-    this.listTarefas.forEach(t => (t.processo = completed));
-  }
-  setAllFinal(completed: boolean) {
-    this.allCompleteFinal = completed;
-    if (this.listTarefas == null) {
-      return;
-    }
-    this.listTarefas.forEach(t => (t.finalizado = completed));
-  }
-
-
-
   
     
 }
