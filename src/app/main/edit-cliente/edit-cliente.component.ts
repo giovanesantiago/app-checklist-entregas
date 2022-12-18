@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { Cliente } from '../model/cliente';
@@ -9,38 +10,34 @@ import { ClienteService } from '../service/cliente.service';
 @Component({
   selector: 'app-edit-cliente',
   templateUrl: './edit-cliente.component.html',
-  styleUrls: ['./edit-cliente.component.css']
+  styleUrls: ['./edit-cliente.component.css'],
+  providers: [DatePipe]
 })
 export class EditClienteComponent implements OnInit{
   id: number = 0;
-  nome: string = "";
-  moto: string = "";
-  chassi: string = "";
-  dataVenda!: Date;
-  dataEntrega!: Date;
+  clienteEdit!: Cliente;
   
   newCliente!: Cliente;
 
-  DatePipe = new DatePipe('pt-BR')
+  
 
   constructor(
     public diaolgRef: MatDialogRef<EditClienteComponent>,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private datePipe: DatePipe
   ) {}
   ngOnInit(): void {
+    
     this.recebendoCliente();
   }
 
   recebendoCliente() {
     const idClienteEdit = sessionStorage.getItem("idClienteEdit");
-    const nomeClienteEdit = sessionStorage.getItem("nomeClienteEdit");
-    const motoClienteEdit = sessionStorage.getItem("motoClienteEdit");
-    const chassiClienteEdit = sessionStorage.getItem("chassiClienteEdit");
-    if(idClienteEdit != null && nomeClienteEdit != null && motoClienteEdit != null && chassiClienteEdit != null) {
+    
+
+    if(idClienteEdit != null) {
       this.id = parseInt(idClienteEdit)
-      this.nome = nomeClienteEdit
-      this.moto = motoClienteEdit
-      this.chassi = chassiClienteEdit
+      this.clienteService.findId(this.id).subscribe(element => this.clienteEdit = element)
     }
   }
 
@@ -49,13 +46,11 @@ export class EditClienteComponent implements OnInit{
   }
 
   
-
-  
   createCliente() {
-    this.newCliente = { "id": this.id, "nome": this.nome, "moto": this.moto, "chassi": this.chassi, "dataVenda": this.dataVenda, "dataEntrega": this.dataEntrega}
+    this.newCliente = { "id": this.id, "nome": this.clienteEdit.nome, "moto": this.clienteEdit.moto, "chassi": this.clienteEdit.chassi, "dataVenda": this.clienteEdit.dataVenda, "dataEntrega": this.clienteEdit.dataEntrega}
     console.log(this.newCliente)
     this.clienteService.editCliente(this.id, this.newCliente).subscribe(element => console.log(element));
-    this.diaolgRef.close();
+    this.diaolgRef.close(); 
   }
 
 }

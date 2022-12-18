@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Delete Cliente</h1>
+<div mat-dialog-content *ngIf="clienteDelete != null">
+  Tem certeza que deseja deletar {{clienteDelete.nome}}  ??
+</div>
+<div class="carregandoClientEdit" *ngIf="clienteDelete== null">
+  <mat-spinner class="carregandoClientEdit" ></mat-spinner>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="cancel()">No</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="deleteCliente()">Ok</button>
+</div>

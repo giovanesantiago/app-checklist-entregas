@@ -30,4 +30,8 @@ export class ClienteService {
   editCliente(idCliente: number, cliente:Cliente) {
     return this.http.post<Cliente>(this.url + "/edit/" + idCliente, cliente).pipe(first());
   }
+
+  deleteCliente(idCliente: number) {
+    return this.http.delete(this.url + "/delete/" + idCliente)
+  }
 }

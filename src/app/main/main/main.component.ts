@@ -5,14 +5,11 @@ import { ClienteService } from '../service/cliente.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CadastroClienteComponent } from '../cadastro-cliente/cadastro-cliente.component';
 import { EditClienteComponent } from '../edit-cliente/edit-cliente.component';
+import { DeleteClienteComponent } from '../delete-cliente/delete-cliente.component';
+import { TarefaService } from '../service/tarefa.service';
+import { Tarefa } from '../model/tarefa';
 
 // Tabela
-export interface listTarefas {
-  tarefas: string;
-  processo: boolean;
-  final: boolean;
-  obs: string;
-}
 
 @Component({
   selector: 'app-main',
@@ -25,32 +22,35 @@ export class MainComponent implements OnInit{
   // Menu
   listChecked!: string;
   listClientes!: Cliente[];
+  // Confirmar carregamento de clientes
+  
   // Cliente selecionado
   clienteSelect!: Cliente;
-  clienteEdit!: Cliente;
-
+  
   // Tabela
-  listTarefas: listTarefas[] = [
-    {tarefas: "Proposta", processo: false, final: false, obs: "Falta 10mil"} 
-  ];
-
+  listTarefas!: Tarefa[];
   // Checkd
   allCompleteProcesso: boolean = false;
   allCompleteFinal: boolean = false;
 
-  sortedData: listTarefas[];
+ 
 
   constructor(
     private clienteService:ClienteService,
+    private tarefaService:TarefaService,
     public dialog:MatDialog,
-  ) {
-    this.sortedData = this.listTarefas.slice();
+  ) {}
+  ngOnInit(): void {
+    this.clienteService.findAll().subscribe(element => {this.listClientes = element});
+    
   }
-  ngOnInit(): void {this.clienteService.findAll().subscribe(element => {this.listClientes = element})}
 
    // Seleção de cliente
    selectClient(idCliente: number) {
+      sessionStorage.setItem("idClienteSelect", idCliente.toString())
       this.clienteService.findId(idCliente).subscribe(element => {this.clienteSelect = element})
+      this.tarefaService.findAll(idCliente).subscribe(element => this.listTarefas = element)
+      
       this.ngOnInit()
    }
 
@@ -65,48 +65,41 @@ export class MainComponent implements OnInit{
    }
 
    editCliente(idCliente: number) {
-    this.clienteService.findId(idCliente).subscribe(element => {this.clienteEdit = element});
     
-    if(this.clienteEdit != null) {
-      const idClienteEdit = idCliente.toString();
-      sessionStorage.setItem("idClienteEdit", idClienteEdit)
-      sessionStorage.setItem("nomeClienteEdit", this.clienteEdit.nome)
-      sessionStorage.setItem("motoClienteEdit", this.clienteEdit.moto)
-      sessionStorage.setItem("chassiClienteEdit", this.clienteEdit.chassi)
-      
-      if(sessionStorage.getItem("idClienteEdit") == idClienteEdit){
-        const dialogRefEdit = this.dialog.open(EditClienteComponent, {width: '500px'});
+    const idClienteEdit = idCliente.toString();
+    sessionStorage.setItem("idClienteEdit", idClienteEdit)
+    
+    
+    if(sessionStorage.getItem("idClienteEdit") == idClienteEdit){
+      const dialogRefEdit = this.dialog.open(EditClienteComponent, {width: '500px'});
+      dialogRefEdit.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.ngOnInit();
+      });
+    }
+   }
+   
+   deleteCliente(idCliente: number) {
+    const idClienteDel = idCliente.toString();
+      sessionStorage.setItem("idClienteDel", idClienteDel)
+
+      if(sessionStorage.getItem("idClienteDel") == idClienteDel){
+        const dialogRefEdit = this.dialog.open(DeleteClienteComponent, {width: '300px'});
         dialogRefEdit.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
           this.ngOnInit();
         });
       }
-    }
-
    }
+
+
+
+
+
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   updateAllComplete() {
     this.allCompleteProcesso = this.listTarefas != null && this.listTarefas.every(t => t.processo);
-    this.allCompleteFinal = this.listTarefas != null && this.listTarefas.every(t => t.final);
+    this.allCompleteFinal = this.listTarefas != null && this.listTarefas.every(t => t.finalizado);
   }
   
   someCompleteProcesso(): boolean {
@@ -119,7 +112,7 @@ export class MainComponent implements OnInit{
     if (this.listTarefas == null) {
       return false;
     }
-    return this.listTarefas.filter(t => t.final).length > 0 && !this.allCompleteFinal;
+    return this.listTarefas.filter(t => t.finalizado).length > 0 && !this.allCompleteFinal;
   }
 
   setAllProcesso(completed: boolean) {
@@ -134,7 +127,7 @@ export class MainComponent implements OnInit{
     if (this.listTarefas == null) {
       return;
     }
-    this.listTarefas.forEach(t => (t.final = completed));
+    this.listTarefas.forEach(t => (t.finalizado = completed));
   }
 
 

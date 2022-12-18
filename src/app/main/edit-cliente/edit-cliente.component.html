@@ -1,5 +1,5 @@
 <h1 mat-dialog-title> Novo Cliente :</h1>
-<div mat-dialog-content>
+<div *ngIf="clienteEdit != null" mat-dialog-content >
     <form class="example-form"> 
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width">
@@ -8,32 +8,43 @@
           </mat-form-field></td>
           <td><mat-form-field class="example-full-width">
             <mat-label>Nome</mat-label>
-            <input matInput placeholder="1º e 2º Nome" [(ngModel)]="nome" name="nome">
+            <input matInput placeholder="1º e 2º Nome" [(ngModel)]="clienteEdit.nome" name="nome">
           </mat-form-field></td>
         </tr></table>
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width">
             <mat-label>Moto</mat-label>
-            <input matInput placeholder="Modelo e Cor" [(ngModel)]="moto" name="moto">
+            <input matInput placeholder="Modelo e Cor" [(ngModel)]="clienteEdit.moto" name="moto">
           </mat-form-field></td>
           <td><mat-form-field class="example-full-width">
             <mat-label>Chassi</mat-label>
-            <input matInput placeholder="6 Ultimos nº" maxlength="6" [(ngModel)]="chassi" name="chassi">
+            <input matInput placeholder="6 Ultimos nº" maxlength="6" [(ngModel)]="clienteEdit.chassi" name="chassi">
           </mat-form-field></td>
          </table>
          <table class="example-full-width" cellspacing="0"><tr>
-          <td><mat-form-field class="example-full-width">
-            <mat-label>Data da venda</mat-label>
-            <input matInput placeholder="00/00/0000" maxlength="10" [(ngModel)]="dataVenda" name="dataVenda">
+          <td><mat-form-field appearance="fill">
+            <mat-label>Data venda</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="clienteEdit.dataVenda" name="dataVenda">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
           </mat-form-field></td>
-          <td><mat-form-field class="example-full-width">
+         </table>
+         <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field appearance="fill">
             <mat-label>Previsão de entrega</mat-label>
-            <input matInput placeholder="00/00/0000" maxlength="10" [(ngModel)]="dataEntrega" name="dataEntrega">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="clienteEdit.dataEntrega" name="dataEntrega">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field></td>
          </table>
       </form>
 </div>
+<div class="carregandoClientEdit" *ngIf="clienteEdit == null">
+  <mat-spinner class="carregandoClientEdit" ></mat-spinner>
+</div>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()"> Cancelar </button>
-  <button mat-button (click)="createCliente()"> Cadastrar </button>
+  <button mat-button (click)="createCliente()"> Editar </button>
 </div>

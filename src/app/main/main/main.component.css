@@ -48,6 +48,18 @@
     text-align: center;
   }
 
+  .carregandoClientEdit{
+    text-align: center;
+    margin: 10px;
+    max-width: 50%;
+    
+  }
+
+  .semTarefas{
+    margin: 20px;
+    text-align: center;
+  }
+
   
 
   

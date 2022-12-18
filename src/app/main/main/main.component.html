@@ -7,7 +7,8 @@
             <mat-radio-group
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
-            [(ngModel)]="listChecked">
+            [(ngModel)]="listChecked"
+            *ngIf="listClientes != null">
             <mat-radio-button 
             (change)="selectClient(cliente.id)" 
             class="example-radio-button radio-button2" 
@@ -20,16 +21,19 @@
           </button>
           <mat-menu #menu="matMenu">
             <button (click)="editCliente(cliente.id)" mat-menu-item>Editar</button>
-            <button mat-menu-item>Deletar</button>
+            <button (click)="deleteCliente(cliente.id)" mat-menu-item>Deletar</button>
           </mat-menu>
             </mat-radio-button>
         </mat-radio-group>
+        <div class="carregandoClientEdit" *ngIf="listClientes == null">
+          <p>Nenhum cliente !!</p>
+        </div>
         <button (click)="createCliente()" mat-button color="accent">
             <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
             Add Cliente
         </button>
     </mat-drawer>
-    <mat-drawer-content>
+    <mat-drawer-content >
         <mat-chip-listbox color="accent"  aria-label="Color selection">
           <mat-chip *ngIf="clienteSelect != null" color="accent">
             <img matChipAvatar src="/assets/img/icons-info/moto.png" alt="Photo of a Shiba Inu"/>
@@ -57,8 +61,8 @@
               <th mat-header-cell class="top-tabela" mat-sort-header="protein"></th>
             </tr>
           
-            <tr *ngFor="let listTarefas of sortedData">
-              <td mat-cell class="dados-tabela">{{listTarefas.tarefas}}</td>
+            <tr *ngFor="let tarefa of listTarefas">
+              <td mat-cell class="dados-tabela">{{tarefa.nome}}</td>
               <td mat-cell class="dados-tabela">
                 <mat-checkbox class="example-margin"
                   [checked]="allCompleteProcesso"
@@ -73,7 +77,7 @@
                   (change)="setAllFinal($event.checked)">
                 </mat-checkbox>
               </td>
-              <td mat-cell class="dados-tabela">{{listTarefas.obs}}</td>
+              <td mat-cell class="dados-tabela">{{tarefa.obs}}</td>
               <td  mat-cell class="dados-tabela">
                 <button class="button-obs" mat-button color="accent">
                 <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
@@ -82,6 +86,9 @@
             </td>
             </tr>
           </table> 
+          <div *ngIf="listTarefas == null" class="semTarefas">
+            <img src="/assets/img/tarefas.png" width="160px">
+          </div>
     </mat-drawer-content>    
 </mat-drawer-container>
 

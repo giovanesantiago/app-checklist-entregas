@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
@@ -12,12 +12,17 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 import { EditClienteComponent } from './edit-cliente/edit-cliente.component';
+import { DeleteClienteComponent } from './delete-cliente/delete-cliente.component';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 
@@ -26,7 +31,8 @@ import { EditClienteComponent } from './edit-cliente/edit-cliente.component';
   declarations: [
     MainComponent,
     CadastroClienteComponent,
-    EditClienteComponent
+    EditClienteComponent,
+    DeleteClienteComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +51,11 @@ import { EditClienteComponent } from './edit-cliente/edit-cliente.component';
     MatInputModule,
     FormsModule,
     MatMenuModule,
-    CommonModule    
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
     
   ]
 })
