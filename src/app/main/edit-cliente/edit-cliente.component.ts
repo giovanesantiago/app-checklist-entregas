@@ -1,7 +1,6 @@
-import { DatePipe } from '@angular/common';
+
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { Cliente } from '../model/cliente';
@@ -36,7 +35,7 @@ export class EditClienteComponent implements OnInit{
 
     if(idClienteEdit != null) {
       this.id = parseInt(idClienteEdit)
-      this.clienteService.findId(this.id).subscribe(element => this.clienteEdit = element)
+      this.clienteService.findEdit(this.id).subscribe(element => this.clienteEdit = element)
     }
   }
 
@@ -49,6 +48,11 @@ export class EditClienteComponent implements OnInit{
     this.newCliente = { "id": this.id, "nome": this.clienteEdit.nome, "moto": this.clienteEdit.moto, "chassi": this.clienteEdit.chassi, "dataVenda": this.clienteEdit.dataVenda, "dataEntrega": this.clienteEdit.dataEntrega}
     this.clienteService.editCliente(this.id, this.newCliente).subscribe(element => console.log(element));
     this.diaolgRef.close(); 
+  }
+
+  converteDate(date:String): Date {
+    var parts = date.split("/")
+    return new Date(parseInt(parts[2]), parseInt(parts[1]), parseInt(parts[0]))
   }
 
 }

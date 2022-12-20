@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, Observable, retry, take } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { Cliente } from '../model/cliente';
 
 
@@ -21,6 +21,10 @@ export class ClienteService {
 
   findId(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(this.url + "/" + id)
+  }
+
+  findEdit(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(this.url + "/findEdit/" + id)
   }
 
   createClient(cliente: Cliente) {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
 import { Cliente } from '../model/cliente';
 import { ClienteService } from '../service/cliente.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,7 +27,9 @@ export class MainComponent implements OnInit{
   // Cliente selecionado
   clienteSelect!: Cliente;
   
+
   // Tabela
+  listTarefaDesordem!: Tarefa[];
   listTarefas!: Tarefa[];
   // Checkd
   allCompleteProcesso: boolean = false;
@@ -51,13 +52,16 @@ export class MainComponent implements OnInit{
   // CLIENTE
    // Seleção de cliente
    selectClient(idCliente: number) {
-      sessionStorage.setItem("idClienteSelect", idCliente.toString())
-      this.clienteService.findId(idCliente).subscribe(element => {this.clienteSelect = element})
-      this.tarefaService.findAll(idCliente).subscribe(element => this.listTarefas = element)
       
-      this.ngOnInit()
-   }
-
+        sessionStorage.setItem("idClienteSelect", idCliente.toString())
+        this.clienteService.findId(idCliente).subscribe(element => {this.clienteSelect = element})
+        this.tarefaService.findAll(idCliente).subscribe(element =>  this.listTarefas = element.sort((a,b) => {
+        return a.idSequencia < b.idSequencia ? -1 : a.idSequencia > b.idSequencia ? 1 : 0;}));
+        this.ngOnInit(); 
+      
+      
+    }
+    
    // Criando Cliente
    createCliente(): void {
     const dialogRefCreate = this.dialog.open(CadastroClienteComponent, {width: '500px'});
@@ -92,26 +96,28 @@ export class MainComponent implements OnInit{
         const dialogRefEdit = this.dialog.open(DeleteClienteComponent, {width: '300px'});
         dialogRefEdit.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
-          this.ngOnInit();
+          location.reload();
         });
       }
    }
 
 
 // TAREFA
-  editTarefa(idCliente:number ,idTarefa:number) {
+  editTarefa(idTarefa:number, idSequencia:number, idCliente:number) {
     this.listTarefas.forEach(tarefa => {
-      if(tarefa.idCliente == idCliente && tarefa.idTarefa == idTarefa) this.tarefaEdit = tarefa;
+      if(tarefa.idTarefa == idTarefa && tarefa.idSequencia == idSequencia && tarefa.cliente.id == idCliente) this.tarefaEdit = tarefa;
     });
-    this.tarefaService.editTarefa(idCliente, idTarefa, this.tarefaEdit).subscribe(element => console.log(element))
+    this.tarefaService.editTarefa( idTarefa,idSequencia, idCliente, this.tarefaEdit).subscribe(element => console.log(element))
     
   }
 
-  addObs(idCliente:number, idTarefa:number) {
-    const idClienteAddObs = idCliente.toString();
+  addObs(idTarefa:number, idSequencia:number, idCliente:number) {
     const idTarefaAddObs = idTarefa.toString();
-      sessionStorage.setItem("idClienteAddObs", idClienteAddObs)
-      sessionStorage.setItem("idTarefaAddObs", idTarefaAddObs)
+    const idSequenciaAddObs = idSequencia.toString();
+    const idClienteAddObs = idCliente.toString();
+    sessionStorage.setItem("idTarefaAddObs", idTarefaAddObs)
+    sessionStorage.setItem("idSequenciaAddObs", idSequenciaAddObs)
+    sessionStorage.setItem("idClienteAddObs", idClienteAddObs)
 
       if(sessionStorage.getItem("idClienteAddObs") == idClienteAddObs && sessionStorage.getItem("idTarefaAddObs") == idTarefaAddObs){
         const dialogRefEdit = this.dialog.open(AddObsComponent, {width: '300px'});

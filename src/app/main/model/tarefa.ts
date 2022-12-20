@@ -1,8 +1,11 @@
+import { Cliente } from "./cliente";
+
 export interface Tarefa{
     idTarefa: number,
-    idCliente: number,
+    idSequencia: number,
     nome: string,
     processo: boolean,
     finalizado: boolean,
-    obs: string
+    obs: string,
+    cliente: Cliente
 }

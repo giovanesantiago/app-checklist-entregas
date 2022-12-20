@@ -10,8 +10,9 @@ import { TarefaService } from '../service/tarefa.service';
 })
 export class AddObsComponent  implements OnInit{
 
-  idCliente!: number;
   idTarefa!: number;
+  idSequencia!: number;
+  idCliente!: number;
   tarefaEdit!: Tarefa;
 
   constructor(
@@ -31,19 +32,21 @@ export class AddObsComponent  implements OnInit{
   
 
   recebendoTarefa(){
-    const idClienteAddObs = sessionStorage.getItem("idClienteAddObs");
     const idTarefaAddObs = sessionStorage.getItem("idTarefaAddObs");
+    const idSequenciaAddObs = sessionStorage.getItem("idSequenciaAddObs");
+    const idClienteAddObs = sessionStorage.getItem("idClienteAddObs");
 
-    if(idClienteAddObs != null && idTarefaAddObs != null) {
-      this.idCliente = parseInt(idClienteAddObs);
+    if(idClienteAddObs != null && idTarefaAddObs != null && idSequenciaAddObs != null) {
       this.idTarefa = parseInt(idTarefaAddObs);
+      this.idSequencia = parseInt(idSequenciaAddObs);
+      this.idCliente = parseInt(idClienteAddObs);
     }
 
-    this.tarefaService.findById(this.idCliente, this.idTarefa).subscribe(element => this.tarefaEdit = element);
+    this.tarefaService.findById(this.idTarefa, this.idSequencia, this.idCliente).subscribe(element => this.tarefaEdit = element);
   }
 
   addObs() {
-    this.tarefaService.editTarefa(this.idCliente, this.idTarefa, this.tarefaEdit).subscribe(element => console.log(element))
+    this.tarefaService.editTarefa(this.idTarefa, this.idSequencia, this.idCliente, this.tarefaEdit).subscribe(element => console.log(element))
     console.log(this.tarefaEdit)
     this.diaolgRef.close(); 
   }

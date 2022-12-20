@@ -64,18 +64,18 @@
             <tr *ngFor="let tarefa of listTarefas">
               <td mat-cell class="dados-tabela">{{tarefa.nome}}</td>
               <td mat-cell class="dados-tabela">
-                <mat-checkbox class="example-margin" (change)="editTarefa(tarefa.idCliente, tarefa.idTarefa)"
+                <mat-checkbox class="example-margin" (change)="editTarefa(tarefa.idTarefa, tarefa.idSequencia, tarefa.cliente.id)"
                   [checked]="tarefa.processo" [(ngModel)]="tarefa.processo">
                 </mat-checkbox>
               </td>
               <td mat-cell class="dados-tabela">
-                <mat-checkbox class="example-margin" (change)="editTarefa(tarefa.idCliente, tarefa.idTarefa)"
+                <mat-checkbox class="example-margin" (change)="editTarefa(tarefa.idTarefa, tarefa.idSequencia, tarefa.cliente.id)"
                   [checked]="tarefa.finalizado" [(ngModel)]="tarefa.finalizado">
                 </mat-checkbox>
               </td>
               <td mat-cell class="dados-tabela">{{tarefa.obs}}</td>
               <td  mat-cell class="dados-tabela">
-                <button class="button-obs" mat-button color="accent" (click)="addObs(tarefa.idCliente, tarefa.idTarefa)">
+                <button class="button-obs" mat-button color="accent" (click)="addObs(tarefa.idTarefa, tarefa.idSequencia, tarefa.cliente.id)">
                 <mat-icon aria-hidden="false" aria-label="Example add icon" fontIcon="add"></mat-icon>
                 Add Obs.
                 </button>

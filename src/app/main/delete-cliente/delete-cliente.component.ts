@@ -38,6 +38,7 @@ export class DeleteClienteComponent implements OnInit{
 
   deleteCliente() {
     this.clienteService.deleteCliente(this.clienteDelete.id).subscribe(element => console.log(element))
+    this.diaolgRef.close();
   }
 
 }
