@@ -24,19 +24,19 @@
          <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field appearance="fill">
             <mat-label>Data venda</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="clienteEdit.dataVenda" name="dataVenda">
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="clienteEdit.dataVenda" name="dataVenda">
             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker ></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 ></mat-datepicker>
           </mat-form-field></td>
          </table>
          <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field appearance="fill">
             <mat-label>Previsão de entrega</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="clienteEdit.dataEntrega" name="dataEntrega">
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="clienteEdit.dataEntrega" name="dataEntrega">
             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field></td>
          </table>
       </form>
